@@ -266,7 +266,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Create a new instance of the given model.
      *
      * @param array $attributes
-     * @param bool  $exists
+     * @param bool $exists
      *
      * @return static
      * @throws DbException
@@ -315,9 +315,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     /**
      * Increment a column's value by a given amount.
      *
-     * @param string    $column
+     * @param string $column
      * @param float|int $amount
-     * @param array     $extra
+     * @param array $extra
      *
      * @return mixed
      * @throws DbException
@@ -330,9 +330,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     /**
      * Decrement a column's value by a given amount.
      *
-     * @param string    $column
+     * @param string $column
      * @param float|int $amount
-     * @param array     $extra
+     * @param array $extra
      *
      * @return mixed
      * @throws DbException
@@ -345,10 +345,10 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     /**
      * Run the increment or decrement method on the model.
      *
-     * @param string    $column
+     * @param string $column
      * @param float|int $amount
-     * @param array     $extra
-     * @param string    $method
+     * @param array $extra
+     * @param string $method
      *
      * @return mixed
      * @throws DbException
@@ -371,10 +371,10 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     /**
      * Increment the underlying attribute value and sync with original.
      *
-     * @param string    $column
+     * @param string $column
      * @param float|int $amount
-     * @param array     $extra
-     * @param string    $method
+     * @param array $extra
+     * @param string $method
      *
      * @return void
      * @throws DbException
@@ -422,8 +422,8 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         }
 
         $query = $this->newModelQuery();
-        $key   = $this->getKeyName();
-        $id    = $this->getAttributeValue($key);
+        $key = $this->getKeyName();
+        $id = $this->getAttributeValue($key);
 
         $result = $query->updateAllCountersById((array)$id, $counters, $extra);
 
@@ -576,7 +576,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      */
     protected function setKeysForSaveQuery(Builder $query)
     {
-        $id      = $this->getKeyForSaveQuery();
+        $id = $this->getKeyForSaveQuery();
         $keyName = $this->getKeyName();
 
         if ($id === null) {
@@ -647,7 +647,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Insert the given attributes and set the ID on the model.
      *
      * @param Builder $query
-     * @param array   $attributes
+     * @param array $attributes
      *
      * @return void
      * @throws DbException
@@ -655,7 +655,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     protected function insertAndSetId(Builder $query, $attributes)
     {
         $keyName = $this->getKeyName();
-        $id      = $query->insertGetId($attributes, $keyName);
+        $id = $query->insertGetId($attributes, $keyName);
 
         $this->setModelAttribute($keyName, $id);
     }
@@ -817,7 +817,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * @return array
      * @throws DbException
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }
@@ -974,7 +974,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * @return bool
      * @throws DbException
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return !is_null($this->getModelAttribute($offset));
     }
@@ -987,7 +987,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * @return mixed
      * @throws DbException
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->getAttributeValue($offset);
     }
@@ -1001,7 +1001,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * @return void
      * @throws DbException
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->setModelAttribute($offset, $value);
     }
@@ -1013,7 +1013,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->modelAttributes[$offset]);
     }
@@ -1068,7 +1068,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Handle dynamic method calls into the model.
      *
      * @param string $method
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
      * @throws DbException
@@ -1086,7 +1086,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Handle dynamic static method calls into the method.
      *
      * @param string $method
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
      * @throws DbException
